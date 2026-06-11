@@ -28,3 +28,6 @@ jobs:
 
       - name: Verify Node Version
         run: node -v
+
+      - name: Run Tests
+        run: npm test
