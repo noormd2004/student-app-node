@@ -1,0 +1,26 @@
+name: Deploy Dev1
+
+on:
+  push:
+    branches:
+      - dev1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Dev1 EC2
+        uses: appleboy/ssh-action@v1.0.3
+
+        with:
+          host: ${{ secrets.DEV1_HOST }}
+          username: ${{ secrets.DEV1_USER }}
+          key: ${{ secrets.DEV1_SSH_KEY }}
+
+          script: |
+            cd ~/student-app-node
+            git checkout dev1
+            git pull origin dev1
+            npm install
+            pm2 restart student-app-dev1
